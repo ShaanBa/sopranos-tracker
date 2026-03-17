@@ -13,3 +13,16 @@ CREATE TABLE Crew (
     FOREIGN KEY (FamilyID)  
     REFERENCES Family(id)
 );
+
+CREATE Table Mobster (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    FirstName VARCHAR(255) NOT NULL,
+    LastName VARCHAR(255) NOT NULL,
+    Moniker VARCHAR(255),
+    Rank VARCHAR(255) NOT NULL,
+    Status VARCHAR(255) NOT NULL,
+    CrewID INT NOT NULL,
+    CONSTRAINT fk_Crew
+    FOREIGN KEY (CrewID)
+    REFERENCES Crew(id)
+);
