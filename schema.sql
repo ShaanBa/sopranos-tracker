@@ -8,6 +8,7 @@ CREATE TABLE Family (
 CREATE TABLE Crew (
     id INT AUTO_INCREMENT PRIMARY KEY,
     Name VARCHAR(255) NOT NULL,
+    Capo VARCHAR(255) NOT NULL,
     FamilyID INT NOT NULL,
     CONSTRAINT fk_Family
     FOREIGN KEY (FamilyID)  
@@ -58,3 +59,18 @@ CREATE TABLE CollectionLog (
     FOREIGN KEY (BusinessID)
     REFERENCES BusinessFront(id)
 );
+
+INSERT INTO Family (Name, BaseCity)
+VALUES ('DiMeo', 'North Jersey');
+
+INSERT INTO Family (Name, BaseCity)
+VALUES ('Lupertazzi', 'New York City');
+
+INSERT INTO Crew (Name, FamilyID)
+VALUES ('Soprano (Tony)', 1);
+
+INSERT INTO Crew (Name, FamilyID)
+VALUES ('Aprile', 1);
+
+INSERT INTO Crew (Name, FamilyID)
+VALUES ('Soprano (Junior)', 1);
