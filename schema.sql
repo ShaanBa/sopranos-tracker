@@ -37,3 +37,10 @@
         FOREIGN KEY (MobsterID)
         REFERENCES Mobster(id)
     );
+
+    CREATE TABLE BusinessFront (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        Name VARCHAR(255) NOT NULL,
+        Industry VARCHAR(255) NOT NULL,
+        StreetAddress VARCHAR(255) NOT NULL
+);
