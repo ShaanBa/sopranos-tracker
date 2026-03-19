@@ -78,4 +78,34 @@ INSERT INTO Crew (Name, Capo, FamilyID)
 VALUES ('Junior', 'Corrado Soprano', 1);
 
 -- March 19 
+INSERT INTO Mobster (FirstName, LastName, Moniker, `Rank`, Status, CrewID)
+VALUES ('Anthony', 'Soprano', 'Tony', 'Capo', 'Active', 1);
 
+INSERT INTO Mobster (FirstName, LastName, Moniker, `Rank`, Status, CrewID)
+VALUES ('Giacomo', 'Aprile', 'Jackie', 'Acting Boss', 'Active', 2);
+
+INSERT INTO Mobster (FirstName, LastName, Moniker, `Rank`, Status, CrewID)
+VALUES ('Peter', 'Gualtieri', 'Paulie Walnuts', 'Soldier', 'Active', 1);
+
+INSERT INTO Mobster (FirstName, LastName, Moniker, `Rank`, Status, CrewID)
+VALUES ('Silvio', 'Dante', 'Sil', 'Soldier', 'Active', 1); 
+
+INSERT INTO BusinessFront (Name, Industry, StreetAddress) 
+VALUES ('Satriale''s Pork Store', 'Food', '101 Kearny Ave');
+
+
+INSERT INTO BusinessFront (Name, Industry, StreetAddress) 
+VALUES ('Bada Bing', 'Adult Entertainment', 'Route 17');
+
+
+INSERT INTO BusinessFront (Name, Industry, StreetAddress) 
+VALUES ('Barone Sanitation', 'Waste Management', '47 Industrial Rd, Jersey City');
+
+INSERT INTO CollectionLog (Amount, DateCollected, MobsterID, BusinessID)
+VALUES (1000, '2000-03-09', 3, 1);
+
+INSERT INTO CollectionLog (Amount, DateCollected, MobsterID, BusinessID)
+VALUES (800, '1999-12-20', 4, 2);
+
+INSERT INTO CollectionLog (Amount, DateCollected, MobsterID, BusinessID)
+VALUES (2500, '2000-01-17', 1, 3);
