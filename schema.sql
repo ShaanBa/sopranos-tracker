@@ -109,3 +109,9 @@ VALUES (800, '1999-12-20', 4, 2);
 
 INSERT INTO CollectionLog (Amount, DateCollected, MobsterID, BusinessID)
 VALUES (2500, '2000-01-17', 1, 3);
+
+SELECT FirstName, LastName, `Rank`, Status FROM Mobster
+WHERE Moniker = 'Tony' 
+OR `Rank` = 'Capo'
+OR Status = 'Active';
+      
