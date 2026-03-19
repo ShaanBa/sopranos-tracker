@@ -28,6 +28,8 @@ CREATE TABLE Mobster (
     REFERENCES Crew(id)
 );
 
+-- March 18 -  Finished schema and started Inserts
+
 CREATE TABLE KnownAssociate (
     id INT AUTO_INCREMENT PRIMARY KEY,
     FirstName VARCHAR(255) NOT NULL,
@@ -66,11 +68,14 @@ VALUES ('DiMeo', 'North Jersey');
 INSERT INTO Family (Name, BaseCity)
 VALUES ('Lupertazzi', 'New York City');
 
-INSERT INTO Crew (Name, FamilyID)
-VALUES ('Soprano (Tony)', 1);
+INSERT INTO Crew (Name, Capo, FamilyID)
+VALUES ('Soprano', 'Anthony Soprano', 1);
 
-INSERT INTO Crew (Name, FamilyID)
-VALUES ('Aprile', 1);
+INSERT INTO Crew (Name, Capo, FamilyID)
+VALUES ('Aprile', 'Giacomo Aprile', 1);
 
-INSERT INTO Crew (Name, FamilyID)
-VALUES ('Soprano (Junior)', 1);
+INSERT INTO Crew (Name, Capo, FamilyID)
+VALUES ('Junior', 'Corrado Soprano', 1);
+
+-- March 19 
+
