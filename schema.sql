@@ -115,3 +115,6 @@ WHERE Moniker = 'Tony'
 OR `Rank` = 'Capo'
 OR Status = 'Active';
       
+
+SELECT Name, StreetAddress FROM BusinessFront
+Where Industry = 'Waste Management';
