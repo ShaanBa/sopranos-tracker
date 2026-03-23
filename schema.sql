@@ -130,3 +130,9 @@ FROM KnownAssociate
 INNER JOIN Mobster
 ON KnownAssociate.MobsterID = Mobster.id 
 WHERE Mobster.Status = 'Informant';
+
+SELECT Crew.Name, sum(Amount) AS AmtCollected 
+FROM CollectionLog
+INNER JOIN Mobster on CollectionLog.MobsterID = Mobster.id 
+INNER JOIN Crew on Mobster.CrewID = Crew.id
+GROUP BY Crew.Name;
