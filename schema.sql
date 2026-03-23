@@ -90,6 +90,12 @@ VALUES ('Peter', 'Gualtieri', 'Paulie Walnuts', 'Soldier', 'Active', 1);
 INSERT INTO Mobster (FirstName, LastName, Moniker, `Rank`, Status, CrewID)
 VALUES ('Silvio', 'Dante', 'Sil', 'Soldier', 'Active', 1); 
 
+INSERT INTO Mobster (FirstName, LastName, Moniker, `Rank`, Status, CrewID)
+VALUES ('Salvatore', 'Bompansiero', 'Pussy', 'Soldier', 'Informant', 1);
+
+INSERT INTO KnownAssociate (FirstName, LastName, RelationType, MobsterID)
+VALUES ('Angela', 'Bompansiero', 'Spouse', 5);
+
 INSERT INTO BusinessFront (Name, Industry, StreetAddress) 
 VALUES ('Satriale''s Pork Store', 'Food', '101 Kearny Ave');
 
@@ -118,3 +124,9 @@ OR Status = 'Active';
 
 SELECT Name, StreetAddress FROM BusinessFront
 Where Industry = 'Waste Management';
+
+SELECT KnownAssociate.FirstName, KnownAssociate.LastName, RelationType 
+FROM KnownAssociate
+INNER JOIN Mobster
+ON KnownAssociate.MobsterID = Mobster.id 
+WHERE Mobster.Status = 'Informant';
