@@ -136,3 +136,11 @@ FROM CollectionLog
 INNER JOIN Mobster on CollectionLog.MobsterID = Mobster.id 
 INNER JOIN Crew on Mobster.CrewID = Crew.id
 GROUP BY Crew.Name;
+
+
+SELECT BusinessFront.Name, sum(Amount) as AmtCollected
+FROM BusinessFront
+INNER JOIN CollectionLog on BusinessFront.id = CollectionLog.BusinessID
+GROUP BY BusinessFront.Name
+ORDER BY AmtCollected DESC
+LIMIT 3;
