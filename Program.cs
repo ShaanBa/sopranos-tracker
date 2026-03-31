@@ -1,4 +1,25 @@
 ﻿using System;
+using MySql.Data.MySqlClient;
+
+// connection string this is setting up how its going to connect to the MySql db 
+string connstr = "server=localhost;database=sopranos;user=root;password=;";
+
+// using in this context is like with in python i assume like we used with in my 
+// db client because with a context manager it allowed us to not worry about leaking info
+// closing the conn automatically
+using (var connection = new MySqlConnection(connstr))
+{
+    try // anything can happen working on a connection so do it in a try catch with
+    {
+        connection.Open();  // maybe this is like in psycopg2 the cursor that the connection uses to do work
+        Console.WriteLine("Connected!"); // write some random shtiff 
+    }
+
+    catch (MySqlException ex) // if there is a mysql exception output it
+    {
+        Console.WriteLine($"Error: {ex.Message}");
+    }
+}
 
 public class Family
 {
@@ -55,3 +76,4 @@ public class CollectionLog
     public int BusinessID { get; set; }
     
 }
+
