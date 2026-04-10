@@ -51,4 +51,43 @@ public class MobsterController : Controller // tells c# class our mobster contro
         }
         return View(mobsters);
     }
+
+    public IActionResult Details(int MobsterID)
+    {
+        string connectionstring = "server=localhost;database=sopranos;user=root;password=;";
+        List<KnownAssociate> associates = new List<KnownAssociate>();
+        using (var connection = new MySqlConnection(connectionstring))
+        {
+            try
+            {
+                connection.Open();
+                string sql = "SELECT KnownAssociate.FirstName, KnownAssociate.LastName, RelationType  FROM KnownAssociate INNER JOIN Mobster ON KnownAssociate.MobsterID = Mobster.Id WHERE Mobster.Id = @MobsterID";
+
+                using (var command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@MobsterId", MobsterID);
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+
+                    {
+                        while (reader.Read())
+                        {
+                            KnownAssociate associate = new KnownAssociate
+                            {
+                                FirstName = reader.GetString("FirstName"),
+                                LastName = reader.GetString("LastName"),
+                                RelationType = reader.GetString("RelationType")
+                            };
+                            associates.Add(associate);
+                        }
+                    }
+                }
+            }
+            catch (MySqlException error)
+            {
+                Console.WriteLine($"Error: {error}");
+            }
+        }
+        return View(associates);
+    }
 }
