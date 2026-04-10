@@ -49,6 +49,6 @@ public class MobsterController : Controller // tells c# class our mobster contro
                 Console.WriteLine($"Error: {error}");
             }
         }
-        return View();
+        return View(mobsters);
     }
 }
