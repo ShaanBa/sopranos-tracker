@@ -1,3 +1,4 @@
+namespace SopranosDashboard.Models;
 public class Family
 {
     public int Id { get; set; }
