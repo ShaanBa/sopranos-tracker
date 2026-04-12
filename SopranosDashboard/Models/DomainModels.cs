@@ -12,6 +12,7 @@ public class Crew
     public required string Name { get; set; }
     public required string Capo { get; set; }
     public int FamilyID { get; set; }
+    public float TotalCollected {get; set;}
 
 }
 
