@@ -8,29 +8,36 @@ using Mysqlx.Crud;
 using Org.BouncyCastle.Asn1.Cmp;
 using SopranosDashboard.Controllers;
 
-public class MobsterController : Controller // tells c# class our mobster controller inherits functionality from base controller
+public class MobsterController : Controller
 {
+    private string _connectionstring = "server=localhost;database=sopranos;user=root;password=;";
+
+    private MySqlConnection connectionHelper()
+    {
+        MySqlConnection connection = new(_connectionstring);
+        connection.Open();
+        return connection;
+    }
+
     public IActionResult Search(string searchTerm)
     {
-        string connectionstring = "server=localhost;database=sopranos;user=root;password=;";
         List<Mobster> mobsters = new List<Mobster>();
-        using (var connection = new MySqlConnection(connectionstring))
-        {
-            try
-            {
-                connection.Open();
-                string sql = "SELECT * FROM Mobster WHERE Moniker = @search OR `Rank` = @search OR Status = @search";
 
+        try
+        {
+            using (var connection = connectionHelper())
+            {
+                string sql = "SELECT * FROM Mobster WHERE Moniker = @search OR `Rank` = @search OR Status = @search";
                 using (var command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@search", searchTerm);
-
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
                             Mobster mobster = new Mobster
                             {
+                                Id = reader.GetInt16("id"),
                                 FirstName = reader.GetString("FirstName"),
                                 LastName = reader.GetString("LastName"),
                                 Rank = reader.GetString("Rank"),
@@ -43,32 +50,30 @@ public class MobsterController : Controller // tells c# class our mobster contro
                     }
                 }
             }
-            
-            catch (MySqlException error) 
-            {
-                Console.WriteLine($"Error: {error}");
-            }
         }
+        catch (MySqlException error)
+        {
+            Console.WriteLine($"Error: {error}");
+        }
+
         return View(mobsters);
     }
 
-    public IActionResult Details(int MobsterID)
+    public IActionResult Details(int id)
     {
-        string connectionstring = "server=localhost;database=sopranos;user=root;password=;";
         List<KnownAssociate> associates = new List<KnownAssociate>();
-        using (var connection = new MySqlConnection(connectionstring))
+
+        try
         {
-            try
+            using (var connection = connectionHelper())
             {
-                connection.Open();
-                string sql = "SELECT KnownAssociate.FirstName, KnownAssociate.LastName, RelationType  FROM KnownAssociate INNER JOIN Mobster ON KnownAssociate.MobsterID = Mobster.Id WHERE Mobster.Id = @MobsterID";
+                string sql = "SELECT KnownAssociate.FirstName, KnownAssociate.LastName, RelationType FROM KnownAssociate INNER JOIN Mobster ON KnownAssociate.MobsterID = Mobster.Id WHERE Mobster.Id = @MobsterID";
 
                 using (var command = new MySqlCommand(sql, connection))
                 {
-                    command.Parameters.AddWithValue("@MobsterId", MobsterID);
+                    command.Parameters.AddWithValue("@MobsterId", id);
 
                     using (MySqlDataReader reader = command.ExecuteReader())
-
                     {
                         while (reader.Read())
                         {
@@ -83,11 +88,12 @@ public class MobsterController : Controller // tells c# class our mobster contro
                     }
                 }
             }
-            catch (MySqlException error)
-            {
-                Console.WriteLine($"Error: {error}");
-            }
         }
+        catch (MySqlException error)
+        {
+            Console.WriteLine($"Error: {error}");
+        }
+
         return View(associates);
     }
 }
