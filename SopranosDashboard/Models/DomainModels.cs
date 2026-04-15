@@ -54,6 +54,10 @@ public class CollectionLog
     public DateTime DateCollected { get; set; }
     public int MobsterID {get; set; }
     public int BusinessID { get; set; }
+
+    public string? MobsterFirstName { get; set;}
+    public string? MobsterLastName { get; set; }
+    public string? FrontName { get; set; }
     
 }
 
