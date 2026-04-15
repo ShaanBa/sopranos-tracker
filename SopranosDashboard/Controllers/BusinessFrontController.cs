@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using SopranosDashboard.Models;
 using MySql.Data.MySqlClient;
 using System.Data.SqlTypes;
