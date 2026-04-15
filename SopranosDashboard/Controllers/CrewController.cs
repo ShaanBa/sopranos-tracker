@@ -24,7 +24,7 @@ public class CrewController : Controller
         {
             using (var connection = connectionHelper())
             {
-                string sql = "SELECT Crew.Name, Crew.id, Crew.Capo, sum(Amount) AS AmtCollected FROM CollectionLog INNER JOIN Mobster on CollectionLog.MobsterID = Mobster.id INNER JOIN Crew on Mobster.CrewID = Crew.id GROUP BY Crew.Name;";
+                string sql = "SELECT Crew.Name, Crew.id, Crew.Capo, sum(Amount) AS AmtCollected FROM CollectionLog INNER JOIN Mobster on CollectionLog.MobsterID = Mobster.id INNER JOIN Crew on Mobster.CrewID = Crew.id GROUP BY Crew.Name, Crew.id, Crew.Capo;";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {

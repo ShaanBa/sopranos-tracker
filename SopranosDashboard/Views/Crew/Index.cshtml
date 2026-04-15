@@ -1,1 +1,22 @@
 @model List<SopranosDashboard.Models.Crew>
+
+<h2>Crew Collection Reports</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Crew Name</th>
+            <th>Capo</th>
+            <th>Total Collected</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var crew in Model) 
+        {
+            <tr>
+                <td>@crew.Name</td>
+                <td>@crew.Capo</td>
+                <td>@crew.TotalCollected</td>
+            </tr>
+        }
+    </tbody>
+</table>
