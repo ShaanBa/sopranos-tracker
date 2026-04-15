@@ -1,0 +1,37 @@
+@model List<SopranosDashboard.Models.BusinessFront>
+
+<form action = "/BusinessFront/TopEarners" method="get">
+    <input type="text" name="limit" placeholder="Enter number of top earners to display" />
+    <button type="submit">Display</button>
+    </form>
+
+@if (Model.Count == 0) 
+{
+    <p>No businesses displayed.</p>
+}
+
+else
+{
+    <h2>Business Front Report</h2>
+    <table class = "table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Street Address</th>
+                <th>Industry</th>
+                <th>Total Collected</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var front in Model)
+            {
+                <tr>
+                    <td>@front.Name</td>
+                    <td>@front.StreetAddress</td>
+                    <td>@front.Industry</td>
+                    <td>@front.TotalCollected</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

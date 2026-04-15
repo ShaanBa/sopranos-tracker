@@ -44,6 +44,7 @@ public class BusinessFront
     public required string Name { get; set; }
     public required string Industry { get; set; }
     public required string StreetAddress { get; set; }
+    public float TotalCollected { get; set; }
 }
 
 public class CollectionLog
