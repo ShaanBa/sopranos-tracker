@@ -1,0 +1,39 @@
+@model List<SopranosDashboard.Models.CollectionLog>
+
+<form action="/Collection/CashPickup" method="get">
+    <input type="date" name="targetDate"/>
+    <button type="submit">Search</button>
+    </form>
+
+@if (Model.Count == 0) 
+{
+    <p>No Cash Pickup this date</p>
+}
+
+else
+{
+    <h2>Cash Pickup Report</h2>
+    <table class = "table">
+        <thead>
+            <tr>
+                <th>Amount</th>
+                <th>Date Collected</th>
+                <th>MobsterFirstName</th>
+                <th>MobsterLastName</th>
+                <th>FrontName</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var collection in Model)
+            {
+                <tr>
+                    <td>@collection.Amount</td>
+                    <td>@collection.DateCollected</td>
+                    <td>@collection.MobsterFirstName</td>
+                    <td>@collection.MobsterLastName</td>
+                    <td>@collection.FrontName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

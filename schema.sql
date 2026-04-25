@@ -144,3 +144,9 @@ INNER JOIN CollectionLog on BusinessFront.id = CollectionLog.BusinessID
 GROUP BY BusinessFront.Name
 ORDER BY AmtCollected DESC
 LIMIT 3;
+
+SELECT Mobster.`FirstName`, `Mobster`.`LastName`, `CollectionLog`.`DateCollected`, `BusinessFront`.`Name`, `Amount` 
+FROM `CollectionLog`
+INNER JOIN `BusinessFront` ON `BusinessFront`.id = `CollectionLog`.`BusinessID`
+INNER JOIN `Mobster` ON `Mobster`.id = `CollectionLog`.`MobsterID`
+WHERE `DateCollected` = @targetDate; 
