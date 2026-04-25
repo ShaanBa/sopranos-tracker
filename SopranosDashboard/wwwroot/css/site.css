@@ -1,31 +1,656 @@
-html {
-  font-size: 14px;
+/* ============================================================
+   F.B.I. ORGANIZED CRIME UNIT
+   SUBJECT TRACKING SYSTEM v3.21 (1998)
+   Internal use only. UNAUTHORIZED ACCESS PROHIBITED.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&family=Special+Elite&family=IBM+Plex+Mono:wght@400;500;700&display=swap');
+
+:root {
+    --bg-deep:        #0b1410;
+    --bg-panel:       #0f1c16;
+    --bg-paper:       #ece4cf;
+    --bg-paper-dark:  #d8cdb1;
+    --ink-paper:      #1a1410;
+    --crt-green:      #7cf3a0;
+    --crt-amber:      #ffb347;
+    --crt-dim:        #3a8c5a;
+    --gov-blue:       #0a2a5e;
+    --gov-blue-2:     #133b7a;
+    --classified:     #b3001b;
+    --classified-2:   #7a0010;
+    --redact:         #0a0a0a;
+    --grid:           rgba(124, 243, 160, 0.08);
+    --scanline:       rgba(0, 0, 0, 0.18);
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
+/* ---------- base ---------- */
+* { box-sizing: border-box; }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+html, body {
+    background: var(--bg-deep);
+    color: var(--crt-green);
+    font-family: 'Share Tech Mono', 'Courier New', monospace;
+    font-size: 15px;
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    position: relative;
 }
 
 body {
-  margin-bottom: 60px;
+    background:
+        radial-gradient(ellipse at center, rgba(20, 60, 40, 0.35) 0%, rgba(5, 10, 8, 1) 80%),
+        repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            transparent 2px,
+            var(--scanline) 3px,
+            transparent 4px
+        ),
+        var(--bg-deep);
+    margin-bottom: 0;
+    padding-bottom: 80px;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.18) 50%),
+        linear-gradient(90deg, rgba(255,0,0,0.04), rgba(0,255,0,0.02), rgba(0,0,255,0.04));
+    background-size: 100% 3px, 4px 100%;
+    z-index: 9998;
+    mix-blend-mode: multiply;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at 50% 120%, transparent 40%, rgba(0,0,0,0.55) 100%);
+    z-index: 9997;
+}
+
+/* ---------- classification banners ---------- */
+.classification-banner {
+    background: var(--classified);
+    color: #fff;
+    text-align: center;
+    font-family: 'IBM Plex Mono', 'Courier New', monospace;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    font-size: 12px;
+    padding: 6px 8px;
+    border-top: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    text-shadow: 0 0 4px rgba(255,255,255,0.4);
+    box-shadow: 0 0 12px rgba(179, 0, 27, 0.6);
+    position: relative;
+    z-index: 10;
+}
+
+.classification-banner.bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+}
+
+/* ---------- agency header ---------- */
+.agency-header {
+    background: linear-gradient(180deg, #0d1f1a, #050a08);
+    border-bottom: 1px solid var(--crt-dim);
+    padding: 14px 24px 10px 24px;
+    display: grid;
+    grid-template-columns: 88px 1fr auto;
+    gap: 18px;
+    align-items: center;
+    position: relative;
+}
+
+.agency-header::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -3px;
+    height: 3px;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--crt-green) 0 6px,
+        transparent 6px 12px
+    );
+    opacity: 0.6;
+}
+
+.agency-seal {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at center, #f0e7c8 0%, #d8cdb1 60%, #8a7a4a 100%);
+    border: 3px double #2a1f0a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #1a120a;
+    font-family: 'Special Elite', serif;
+    text-align: center;
+    line-height: 1;
+    box-shadow:
+        0 0 0 2px #0b1410,
+        0 0 0 4px #c8b27a,
+        0 0 22px rgba(255, 200, 90, 0.25);
+    position: relative;
+}
+
+.agency-seal::before {
+    content: "★";
+    position: absolute;
+    top: -2px;
+    color: #2a1f0a;
+    font-size: 10px;
+}
+
+.agency-seal-fbi {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+}
+
+.agency-seal-sub {
+    font-size: 8px;
+    margin-top: 4px;
+    letter-spacing: 0.08em;
+    opacity: 0.85;
+}
+
+.agency-title-block {
+    color: var(--crt-green);
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+.agency-title {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: #e7ffe9;
+    text-shadow: 0 0 8px rgba(124, 243, 160, 0.55);
+    margin: 0;
+}
+
+.agency-subtitle {
+    font-size: 12px;
+    color: var(--crt-amber);
+    letter-spacing: 0.25em;
+    margin-top: 2px;
+}
+
+.agency-meta {
+    text-align: right;
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--crt-dim);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.agency-meta .live {
+    color: var(--crt-green);
+}
+
+.agency-meta .live::before {
+    content: "● ";
+    color: #25ff6e;
+    animation: blink 1.4s infinite steps(1);
+}
+
+@keyframes blink {
+    50% { opacity: 0.15; }
+}
+
+/* ---------- navigation strip ---------- */
+.nav-strip {
+    background: #07120d;
+    border-bottom: 1px solid var(--crt-dim);
+    padding: 0 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    font-family: 'Share Tech Mono', monospace;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+}
+
+.nav-strip a {
+    color: var(--crt-dim);
+    text-decoration: none;
+    padding: 10px 16px;
+    border-right: 1px solid rgba(124, 243, 160, 0.15);
+    transition: background 80ms linear, color 80ms linear;
+    position: relative;
+}
+
+.nav-strip a:hover {
+    color: #001a0c;
+    background: var(--crt-green);
+    text-shadow: none;
+}
+
+.nav-strip a::before { content: "[ "; opacity: 0.5; }
+.nav-strip a::after  { content: " ]"; opacity: 0.5; }
+
+/* hide bootstrap navbar entirely if it slips in */
+.navbar { display: none !important; }
+
+/* ---------- main container / panel ---------- */
+.container, .container-fluid {
+    max-width: 1180px;
+    margin: 22px auto;
+    padding: 0 18px;
+}
+
+main[role="main"] {
+    background:
+        linear-gradient(180deg, rgba(124,243,160,0.04), rgba(0,0,0,0.4)),
+        #08130e;
+    border: 1px solid var(--crt-dim);
+    box-shadow:
+        inset 0 0 30px rgba(0,0,0,0.6),
+        0 0 30px rgba(124,243,160,0.08);
+    padding: 0;
+    position: relative;
+}
+
+main[role="main"]::before {
+    content: "FILE: ORG-CRIME / NJ-DIVISION / TARGET: SOPRANO-T  ▌";
+    display: block;
+    background: var(--crt-green);
+    color: #02160c;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    padding: 6px 12px;
+}
+
+.panel-body {
+    padding: 22px 26px 32px 26px;
+}
+
+/* ---------- typography ---------- */
+h1, h2, h3, h4 {
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--crt-amber);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin: 0 0 14px 0;
+    text-shadow: 0 0 6px rgba(255, 179, 71, 0.35);
+}
+
+h1 { font-size: 22px; }
+h2 { font-size: 18px; }
+h3 { font-size: 15px; }
+
+h2::before { content: "▼ "; color: var(--crt-green); }
+h3::before { content: "» "; color: var(--crt-green); }
+
+p {
+    color: #cfe9d6;
+    line-height: 1.55;
+}
+
+a { color: var(--crt-amber); text-decoration: none; border-bottom: 1px dotted var(--crt-amber); }
+a:hover { color: #fff; background: var(--crt-amber); text-shadow: none; }
+
+hr {
+    border: 0;
+    border-top: 1px dashed var(--crt-dim);
+    margin: 18px 0;
+}
+
+/* ---------- forms ---------- */
+form {
+    background: #050d09;
+    border: 1px solid var(--crt-dim);
+    padding: 14px 16px;
+    margin: 0 0 22px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    position: relative;
+}
+
+form::before {
+    content: ">> QUERY INPUT";
+    position: absolute;
+    top: -10px;
+    left: 12px;
+    background: #08130e;
+    color: var(--crt-amber);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    padding: 0 6px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="search"],
+select,
+textarea {
+    background: #02110a;
+    color: var(--crt-green);
+    border: 1px solid var(--crt-dim);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    padding: 8px 12px;
+    outline: none;
+    flex: 1 1 240px;
+    min-width: 200px;
+    caret-color: var(--crt-green);
+    box-shadow: inset 0 0 8px rgba(124, 243, 160, 0.1);
+}
+
+input::placeholder {
+    color: var(--crt-dim);
+    font-style: normal;
+    letter-spacing: 0.05em;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--crt-green);
+    box-shadow: inset 0 0 12px rgba(124, 243, 160, 0.25), 0 0 6px rgba(124, 243, 160, 0.4);
+}
+
+button, input[type="submit"], .btn {
+    background: var(--crt-amber);
+    color: #1a0e00;
+    border: 1px solid #ffd07a;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    padding: 8px 18px;
+    cursor: pointer;
+    box-shadow: 0 0 12px rgba(255, 179, 71, 0.35);
+    transition: filter 80ms linear, transform 80ms ease-out;
+}
+
+button:hover, input[type="submit"]:hover, .btn:hover {
+    filter: brightness(1.15);
+    transform: translateY(-1px);
+}
+
+button:active, input[type="submit"]:active, .btn:active {
+    transform: translateY(0);
+    filter: brightness(0.9);
+}
+
+.btn:focus, .btn:active:focus, .form-control:focus {
+    box-shadow: 0 0 0 2px #02110a, 0 0 0 4px var(--crt-green);
+}
+
+/* ---------- tables ---------- */
+table, table.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0 18px 0;
+    font-family: 'Share Tech Mono', monospace;
+    color: #d8f0df;
+    background: #02110a;
+    border: 1px solid var(--crt-dim);
+}
+
+table thead tr,
+table tr:first-child {
+    background: linear-gradient(180deg, #0c2a1d, #06180f);
+    border-bottom: 1px solid var(--crt-green);
+}
+
+table th {
+    text-align: left;
+    color: var(--crt-amber);
+    font-family: 'IBM Plex Mono', monospace;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    padding: 10px 12px;
+    border-right: 1px dashed rgba(124, 243, 160, 0.15);
+}
+
+table td {
+    padding: 8px 12px;
+    border-bottom: 1px dashed rgba(124, 243, 160, 0.15);
+    border-right: 1px dashed rgba(124, 243, 160, 0.08);
+    font-size: 13px;
+}
+
+table tr:nth-child(even) td {
+    background: rgba(124, 243, 160, 0.04);
+}
+
+table tr:hover td {
+    background: rgba(255, 179, 71, 0.10);
+    color: #fff8e6;
+}
+
+table td a {
+    color: var(--crt-green);
+    border-bottom: 1px dotted var(--crt-green);
+}
+table td a:hover {
+    background: var(--crt-green);
+    color: #02110a;
+}
+
+/* ---------- callouts / empty states ---------- */
+main p {
+    background: rgba(179, 0, 27, 0.08);
+    border-left: 4px solid var(--classified);
+    padding: 10px 14px;
+    margin: 14px 0;
+    color: #ffd6dc;
+    font-family: 'Share Tech Mono', monospace;
+    letter-spacing: 0.06em;
+}
+
+main p::before {
+    content: "[!] ";
+    color: var(--classified);
+    font-weight: 700;
+}
+
+main p a { color: var(--crt-amber); }
+
+/* ---------- dossier / file tabs ---------- */
+.dossier-tabs {
+    display: flex;
+    gap: 6px;
+    margin: 0 0 -1px 0;
+    padding: 0 10px;
+}
+
+.dossier-tab {
+    background: #0c2118;
+    border: 1px solid var(--crt-dim);
+    border-bottom: none;
+    padding: 6px 14px;
+    font-family: 'Special Elite', serif;
+    font-size: 12px;
+    color: var(--crt-amber);
+    letter-spacing: 0.1em;
+}
+
+.dossier-tab.active {
+    background: var(--bg-paper);
+    color: var(--ink-paper);
+    border-color: var(--bg-paper);
+    box-shadow: 0 -2px 0 var(--crt-amber);
+}
+
+/* ---------- stamps & seals ---------- */
+.stamp {
+    display: inline-block;
+    border: 3px solid var(--classified);
+    color: var(--classified);
+    font-family: 'Special Elite', serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    padding: 6px 14px;
+    transform: rotate(-6deg);
+    opacity: 0.85;
+    background: rgba(179, 0, 27, 0.05);
+    box-shadow: 0 0 0 1px rgba(179, 0, 27, 0.4) inset;
+}
+
+.stamp.eyes-only { border-color: #1a4f8a; color: #1a4f8a; transform: rotate(4deg); }
+.stamp.confirmed { border-color: #1f7a3a; color: #1f7a3a; transform: rotate(-3deg); }
+
+/* ---------- grid panels (for landing) ---------- */
+.fbi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+    margin: 18px 0;
+}
+
+.fbi-card {
+    background:
+        linear-gradient(180deg, rgba(124,243,160,0.05), rgba(0,0,0,0.3)),
+        #06140e;
+    border: 1px solid var(--crt-dim);
+    padding: 16px 18px;
+    position: relative;
+    overflow: hidden;
+}
+
+.fbi-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 22px;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--crt-amber) 0 8px,
+        transparent 8px 14px
+    );
+    opacity: 0.18;
+}
+
+.fbi-card h3 {
+    margin-top: 8px;
+    color: var(--crt-amber);
+}
+
+.fbi-card .case-no {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--crt-dim);
+    letter-spacing: 0.2em;
+    margin-bottom: 4px;
+}
+
+.fbi-card .card-action {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 6px 12px;
+    background: transparent;
+    color: var(--crt-green);
+    border: 1px solid var(--crt-green);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.fbi-card .card-action:hover {
+    background: var(--crt-green);
+    color: #02110a;
+}
+
+/* ---------- redacted bar ---------- */
+.redact {
+    display: inline-block;
+    background: var(--redact);
+    color: var(--redact);
+    user-select: none;
+    padding: 0 8px;
+    border-radius: 1px;
+}
+
+/* ---------- ascii / pre blocks ---------- */
+pre, .ascii {
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--crt-green);
+    background: transparent;
+    line-height: 1.15;
+    font-size: 12px;
+    margin: 0 0 10px 0;
+    text-shadow: 0 0 4px rgba(124,243,160,0.4);
+}
+
+/* ---------- terminal cursor ---------- */
+.cursor::after {
+    content: "▌";
+    color: var(--crt-green);
+    margin-left: 4px;
+    animation: blink 1s steps(1) infinite;
+}
+
+/* ---------- footer ---------- */
+.fbi-footer {
+    border-top: 1px dashed var(--crt-dim);
+    padding: 14px 22px 10px 22px;
+    margin-top: 24px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--crt-dim);
+    letter-spacing: 0.12em;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.fbi-footer a { color: var(--crt-amber); border-bottom: 1px dotted var(--crt-amber); }
+
+/* legacy bootstrap footer cleanup */
+footer.footer { display: none; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 720px) {
+    .agency-header { grid-template-columns: 64px 1fr; }
+    .agency-meta { grid-column: 1 / -1; text-align: left; }
+    .agency-seal { width: 64px; height: 64px; }
+    .agency-seal-fbi { font-size: 16px; }
+    .agency-title { font-size: 16px; }
+    .nav-strip { font-size: 11px; }
+    table th, table td { padding: 6px 8px; font-size: 12px; }
+}
+
+/* ---------- utility ---------- */
+.muted { color: var(--crt-dim); }
+.amber { color: var(--crt-amber); }
+.danger { color: var(--classified); }
+.center { text-align: center; }
+.kv { display: grid; grid-template-columns: 200px 1fr; gap: 6px 18px; font-family: 'Share Tech Mono', monospace; }
+.kv dt { color: var(--crt-amber); letter-spacing: 0.12em; text-transform: uppercase; font-size: 12px; }
+.kv dd { margin: 0; color: #d8f0df; }
+
+.label-tag {
+    display: inline-block;
+    border: 1px solid var(--crt-dim);
+    padding: 2px 8px;
+    font-size: 11px;
+    color: var(--crt-amber);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-right: 6px;
 }

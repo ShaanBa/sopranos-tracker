@@ -1,8 +1,106 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Command Center";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="dossier-tabs">
+    <span class="dossier-tab active">DOSSIER 01</span>
+    <span class="dossier-tab">SURVEILLANCE</span>
+    <span class="dossier-tab">WIRETAPS</span>
+    <span class="dossier-tab">EVIDENCE</span>
 </div>
+
+<h1>// Operation Bada-Bing &mdash; Command Center<span class="cursor"></span></h1>
+
+<div style="display:flex; gap:12px; flex-wrap:wrap; margin: 6px 0 18px;">
+    <span class="stamp">CLASSIFIED</span>
+    <span class="stamp eyes-only">EYES ONLY</span>
+    <span class="stamp confirmed">ACTIVE INVESTIGATION</span>
+</div>
+
+<pre class="ascii">
++--------------------------------------------------------------+
+|  PRIMARY TARGET ........ SOPRANO, ANTHONY J.  ("TONY")       |
+|  ALIAS / MONIKER ....... "T", "THE BOSS"                     |
+|  AFFILIATION ........... DiMeo Crime Family / NJ             |
+|  RANK .................. BOSS                                |
+|  STATUS ................ ACTIVE &middot; UNDER SURVEILLANCE       |
+|  LAST KNOWN LOCATION ... <span class="redact">REDACTED REDACTED REDACTED</span>          |
++--------------------------------------------------------------+
+</pre>
+
+<p>
+    Welcome, agent. This terminal provides authorized access to the
+    <strong class="amber">Subject Tracking System</strong>. Use the navigation strip
+    above to query the subject database, monitor crew collections, audit known
+    front businesses, and log pickup transcripts gathered from active wires.
+</p>
+
+<div class="fbi-grid">
+    <div class="fbi-card">
+        <div class="case-no">CASE NO. DN-1999-001</div>
+        <h3>Subject Database</h3>
+        <p style="background:none;border:none;padding:0;color:#cfe9d6;">
+            Query individual subjects by name, rank, or last known status.
+            Pull full dossier and known associates.
+        </p>
+        <a class="card-action" asp-controller="Mobster" asp-action="Search">Run Query</a>
+    </div>
+
+    <div class="fbi-card">
+        <div class="case-no">CASE NO. DN-1999-014</div>
+        <h3>Crew Surveillance</h3>
+        <p style="background:none;border:none;padding:0;color:#cfe9d6;">
+            Aggregated collection reporting per crew. Identify the
+            highest-earning capos in the family.
+        </p>
+        <a class="card-action" asp-controller="Crew" asp-action="Index">Open Log</a>
+    </div>
+
+    <div class="fbi-card">
+        <div class="case-no">CASE NO. DN-1999-022</div>
+        <h3>Front Businesses</h3>
+        <p style="background:none;border:none;padding:0;color:#cfe9d6;">
+            Filter known front businesses by industry. Suspected
+            money-laundering operations are flagged for review.
+        </p>
+        <a class="card-action" asp-controller="BusinessFront" asp-action="Filter">Filter Fronts</a>
+    </div>
+
+    <div class="fbi-card">
+        <div class="case-no">CASE NO. DN-1999-031</div>
+        <h3>Revenue Intel</h3>
+        <p style="background:none;border:none;padding:0;color:#cfe9d6;">
+            Top earning fronts ranked by total intercepted collections.
+        </p>
+        <a class="card-action" asp-controller="BusinessFront" asp-action="TopEarners">View Earners</a>
+    </div>
+
+    <div class="fbi-card">
+        <div class="case-no">CASE NO. DN-1999-047</div>
+        <h3>Cash Pickup Log</h3>
+        <p style="background:none;border:none;padding:0;color:#cfe9d6;">
+            Daily transcript of cash pickups by collecting mobster and
+            originating front. Filter by date.
+        </p>
+        <a class="card-action" asp-controller="Collection" asp-action="CashPickup">Open Transcript</a>
+    </div>
+
+    <div class="fbi-card">
+        <div class="case-no">CASE NO. DN-1999-099</div>
+        <h3>System Status</h3>
+        <p style="background:none;border:none;padding:0;color:#cfe9d6;">
+            Live database link operational. Wiretap relay nominal.
+            Last sync within tolerance.
+        </p>
+        <a class="card-action" href="#">All Systems Nominal</a>
+    </div>
+</div>
+
+<hr />
+
+<p style="background: rgba(255, 179, 71, 0.06); border-left-color: var(--crt-amber); color:#ffe6bf;">
+    Reminder: All queries against this system are logged. Disclosure of any
+    subject information outside the authorized chain of command is a violation
+    of <strong>18 U.S.C. &sect; 798</strong> and may result in disciplinary
+    action up to and including termination of clearance.
+</p>

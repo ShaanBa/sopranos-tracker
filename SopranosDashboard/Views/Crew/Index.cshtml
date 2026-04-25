@@ -1,4 +1,21 @@
 @model List<SopranosDashboard.Models.Crew>
+@{
+    ViewData["Title"] = "Crew Surveillance";
+}
+
+<div class="dossier-tabs">
+    <span class="dossier-tab active">CREW LEDGER</span>
+    <span class="dossier-tab">CAPO ROSTER</span>
+    <span class="dossier-tab">EARNINGS</span>
+</div>
+
+<h1>// Crew Surveillance &mdash; Collection Reports<span class="cursor"></span></h1>
+
+<div style="display:flex; gap:12px; flex-wrap:wrap; margin: 6px 0 18px;">
+    <span class="stamp confirmed">VERIFIED</span>
+    <span class="label-tag">SOURCE: TITLE-III WIRES</span>
+    <span class="label-tag">PERIOD: ROLLING 30D</span>
+</div>
 
 <h2>Crew Collection Reports</h2>
 <table class="table">

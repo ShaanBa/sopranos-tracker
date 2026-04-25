@@ -1,4 +1,27 @@
 @model List<SopranosDashboard.Models.KnownAssociate>
+@{
+    ViewData["Title"] = "Subject Dossier";
+}
+
+<div class="dossier-tabs">
+    <span class="dossier-tab">SUBJECT INDEX</span>
+    <span class="dossier-tab active">KNOWN ASSOCIATES</span>
+    <span class="dossier-tab">SURVEILLANCE</span>
+</div>
+
+<h1>// Known Associates &mdash; Cross-Reference<span class="cursor"></span></h1>
+
+<div style="display:flex; gap:12px; flex-wrap:wrap; margin: 6px 0 18px;">
+    <span class="stamp">CONFIDENTIAL</span>
+    <span class="stamp eyes-only">SOURCE PROTECTED</span>
+</div>
+
+<pre class="ascii">
++--------------------------------------------------------------+
+|  RELATION CHART &mdash; PERSONS OF INTEREST WITH KNOWN CONTACT     |
+|  USE FOR LEAD GENERATION ONLY &middot; NOT FOR PROBABLE CAUSE       |
++--------------------------------------------------------------+
+</pre>
     
 
 @if (Model.Count == 0)

@@ -1,9 +1,25 @@
 @model List<SopranosDashboard.Models.BusinessFront>
+@{
+    ViewData["Title"] = "Front Businesses";
+}
+
+<div class="dossier-tabs">
+    <span class="dossier-tab active">FRONT INDEX</span>
+    <span class="dossier-tab">REVENUE INTEL</span>
+    <span class="dossier-tab">SHELL TRACE</span>
+</div>
+
+<h1>// Front Business Filter &mdash; Industry Sweep<span class="cursor"></span></h1>
+
+<p style="background: rgba(124,243,160,0.05); border-left-color: var(--crt-green); color:#cfe9d6;">
+    Filter known front businesses by reported industry classification.
+    Operations flagged here are suspected vehicles for laundering.
+</p>
 
 <form action = "/BusinessFront/Filter" method="get">
-    <input type="text" name="industry" placeholder="Industry, ex: 'Waste Management'"/>
-    <button type="submit">Filter</button>
-    </form>
+    <input type="text" name="industry" placeholder="INDUSTRY &mdash; e.g. WASTE MANAGEMENT, CONSTRUCTION"/>
+    <button type="submit">Filter Fronts</button>
+</form>
 
 @if (Model.Count == 0) 
 {
@@ -12,6 +28,11 @@
 
 else
 {
+    <div style="display:flex; justify-content:space-between; align-items:center; margin: 6px 0 8px;">
+        <span class="label-tag">RESULTS: @Model.Count</span>
+        <span class="muted" style="font-size:11px; letter-spacing:.18em;">SOURCE: STATE BIZ FILINGS / SECRET SVC</span>
+    </div>
+
     <h2>Business Front Report</h2>
     <table class = "table">
         <thead>

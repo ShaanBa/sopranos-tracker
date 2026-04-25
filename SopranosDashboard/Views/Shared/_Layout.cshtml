@@ -1,47 +1,69 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var caseId = "DN-1999-" + DateTime.UtcNow.ToString("MMdd") + "-NJ";
+    var stamp = DateTime.UtcNow.ToString("yyyy.MM.dd HH:mm 'Z'");
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - SopranosDashboard</title>
+    <title>@ViewData["Title"] // F.B.I. ORG-CRIME TRACKER</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SopranosDashboard.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SopranosDashboard</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+    <div class="classification-banner">
+        // TOP SECRET // ORG-CRIME // EYES ONLY // DO NOT DISSEMINATE //
+    </div>
+
+    <header class="agency-header">
+        <div class="agency-seal" aria-hidden="true">
+            <div class="agency-seal-fbi">FBI</div>
+            <div class="agency-seal-sub">U.S. DOJ</div>
+        </div>
+        <div class="agency-title-block">
+            <h1 class="agency-title">FEDERAL BUREAU OF INVESTIGATION</h1>
+            <div class="agency-subtitle">ORGANIZED CRIME UNIT &middot; NORTHERN NEW JERSEY FIELD OFFICE</div>
+            <div class="agency-subtitle muted" style="margin-top:4px; letter-spacing:.18em;">
+                SUBJECT TRACKING SYSTEM &nbsp;v3.21&nbsp;//&nbsp;CASE FILE: @caseId
             </div>
-        </nav>
+        </div>
+        <div class="agency-meta">
+            <div class="live">CONNECTION SECURE</div>
+            <div>NODE: NJ-FO-04</div>
+            <div>TIMESTAMP: @stamp</div>
+            <div>OPERATOR: AGT. HARRIS, D.</div>
+        </div>
     </header>
+
+    <nav class="nav-strip">
+        <a asp-area="" asp-controller="Home" asp-action="Index">Command Center</a>
+        <a asp-area="" asp-controller="Mobster" asp-action="Search">Subject Database</a>
+        <a asp-area="" asp-controller="Crew" asp-action="Index">Crew Surveillance</a>
+        <a asp-area="" asp-controller="BusinessFront" asp-action="Filter">Front Businesses</a>
+        <a asp-area="" asp-controller="BusinessFront" asp-action="TopEarners">Revenue Intel</a>
+        <a asp-area="" asp-controller="Collection" asp-action="CashPickup">Cash Pickup Log</a>
+        <a asp-area="" asp-controller="Home" asp-action="Privacy">Disclosure</a>
+    </nav>
+
     <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
+        <main role="main">
+            <div class="panel-body">
+                @RenderBody()
+            </div>
+            <div class="fbi-footer">
+                <span>AUTHORIZED PERSONNEL ONLY &middot; LOG #@(Guid.NewGuid().ToString("N").Substring(0,10).ToUpper())</span>
+                <span>&copy; 2026 SOPRANOS TRACKER &middot; <a asp-area="" asp-controller="Home" asp-action="Privacy">Disclosure Notice</a></span>
+            </div>
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - SopranosDashboard - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+    <div class="classification-banner bottom">
+        // TOP SECRET // ORG-CRIME // EYES ONLY // DO NOT DISSEMINATE //
+    </div>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -1,16 +1,31 @@
 ﻿@model ErrorViewModel
 @{
-    ViewData["Title"] = "Error";
+    ViewData["Title"] = "System Fault";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<h1 class="danger">// SYSTEM FAULT &mdash; QUERY ABORTED<span class="cursor"></span></h1>
+
+<div style="display:flex; gap:12px; flex-wrap:wrap; margin: 6px 0 18px;">
+    <span class="stamp">ERROR</span>
+    <span class="stamp eyes-only">INCIDENT LOGGED</span>
+</div>
+
+<pre class="ascii">
++--------------------------------------------------------------+
+|  STATUS ........... TRANSACTION FAILED                       |
+|  SEVERITY ......... HIGH                                     |
+|  ACTION ........... CONTACT SYSTEM ADMINISTRATOR             |
++--------------------------------------------------------------+
+</pre>
+
+<p>An error occurred while processing your request against the subject database.</p>
 
 @if (Model.ShowRequestId)
 {
-    <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
-    </p>
+    <dl class="kv">
+        <dt>Request ID</dt>
+        <dd><code class="amber">@Model.RequestId</code></dd>
+    </dl>
 }
 
 <h3>Development Mode</h3>
