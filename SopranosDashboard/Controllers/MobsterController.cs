@@ -43,7 +43,7 @@ public class MobsterController : Controller
                                 Rank = reader.GetString("Rank"),
                                 Status = reader.GetString("Status"),
                                 CrewID = reader.GetInt16("CrewID"),
-                                Moniker = reader.GetString("Moniker")
+                                Moniker = reader.IsDBNull(reader.GetOrdinal("Moniker")) ? null : reader.GetString("Moniker")
                             };
                             mobsters.Add(mobster);
                         }
