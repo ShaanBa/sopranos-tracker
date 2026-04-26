@@ -1,3 +1,4 @@
 bin/
 obj/
 GEMINI.md
+appsettings.Local.json

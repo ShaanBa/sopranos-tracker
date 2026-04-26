@@ -2,6 +2,7 @@ namespace SopranosDashboard.Controllers;
 using SopranosDashboard.Models;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualBasic;
 using MySql.Data.MySqlClient;
 using Mysqlx.Crud;
@@ -10,7 +11,13 @@ using SopranosDashboard.Controllers;
 
 public class MobsterController : Controller
 {
-    private string _connectionstring = "server=localhost;database=sopranos;user=root;password=;";
+    private readonly string _connectionstring;
+
+    public MobsterController(IConfiguration configuration)
+    {
+        _connectionstring = configuration.GetConnectionString("DefaultConnection")
+            ?? throw new InvalidOperationException("Missing connection string: DefaultConnection");
+    }
 
     private MySqlConnection connectionHelper()
     {

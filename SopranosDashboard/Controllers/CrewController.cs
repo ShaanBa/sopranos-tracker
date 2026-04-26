@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using SopranosDashboard.Models;
 using MySql.Data.MySqlClient;
 using System.Runtime.CompilerServices;
@@ -7,7 +8,13 @@ namespace SopranosDashboard.Controllers;
 
 public class CrewController : Controller 
 {
-    private string _connectionstring = "server=localhost;database=sopranos;user=root;password=;";
+    private readonly string _connectionstring;
+
+    public CrewController(IConfiguration configuration)
+    {
+        _connectionstring = configuration.GetConnectionString("DefaultConnection")
+            ?? throw new InvalidOperationException("Missing connection string: DefaultConnection");
+    }
 
     private MySqlConnection connectionHelper()
     {
