@@ -216,23 +216,34 @@ body::after {
 .nav-strip {
     background: #07120d;
     border-bottom: 1px solid var(--crt-dim);
-    padding: 0 16px;
+    padding: 0 12px;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(124, 243, 160, 0.35) transparent;
     gap: 0;
     font-family: 'Share Tech Mono', monospace;
     text-transform: uppercase;
-    font-size: 13px;
-    letter-spacing: 0.18em;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    align-items: stretch;
 }
 
 .nav-strip a {
     color: var(--crt-dim);
     text-decoration: none;
-    padding: 10px 16px;
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 12px;
     border-right: 1px solid rgba(124, 243, 160, 0.15);
     transition: background 80ms linear, color 80ms linear;
     position: relative;
+    flex: 0 0 auto;
+    min-height: 40px;
+    border-bottom: none;
 }
 
 .nav-strip a:hover {
@@ -241,8 +252,22 @@ body::after {
     text-shadow: none;
 }
 
-.nav-strip a::before { content: "[ "; opacity: 0.5; }
-.nav-strip a::after  { content: " ]"; opacity: 0.5; }
+.nav-strip a::before { content: "[ "; opacity: 0.55; }
+.nav-strip a::after  { content: " ]"; opacity: 0.55; }
+.nav-strip a:last-child { border-right: none; }
+
+.nav-strip::-webkit-scrollbar {
+    height: 7px;
+}
+
+.nav-strip::-webkit-scrollbar-track {
+    background: #06110c;
+}
+
+.nav-strip::-webkit-scrollbar-thumb {
+    background: rgba(124, 243, 160, 0.35);
+    border-radius: 999px;
+}
 
 /* hide bootstrap navbar entirely if it slips in */
 .navbar { display: none !important; }
@@ -429,14 +454,16 @@ table td {
     border-bottom: 1px dashed rgba(124, 243, 160, 0.15);
     border-right: 1px dashed rgba(124, 243, 160, 0.08);
     font-size: 13px;
+    color: #dff6e6;
+    background: rgba(8, 26, 18, 0.72);
 }
 
 table tr:nth-child(even) td {
-    background: rgba(124, 243, 160, 0.04);
+    background: rgba(12, 34, 24, 0.72);
 }
 
 table tr:hover td {
-    background: rgba(255, 179, 71, 0.10);
+    background: rgba(255, 179, 71, 0.16);
     color: #fff8e6;
 }
 
@@ -631,7 +658,8 @@ footer.footer { display: none; }
     .agency-seal { width: 64px; height: 64px; }
     .agency-seal-fbi { font-size: 16px; }
     .agency-title { font-size: 16px; }
-    .nav-strip { font-size: 11px; }
+    .nav-strip { font-size: 11px; letter-spacing: 0.08em; padding: 0 8px; }
+    .nav-strip a { padding: 8px 10px; min-height: 36px; }
     table th, table td { padding: 6px 8px; font-size: 12px; }
 }
 
