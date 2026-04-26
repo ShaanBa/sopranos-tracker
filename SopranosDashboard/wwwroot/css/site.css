@@ -449,21 +449,24 @@ table th {
     border-right: 1px dashed rgba(124, 243, 160, 0.15);
 }
 
-table td {
+table td,
+table.table tbody tr td {
     padding: 8px 12px;
     border-bottom: 1px dashed rgba(124, 243, 160, 0.15);
     border-right: 1px dashed rgba(124, 243, 160, 0.08);
     font-size: 13px;
-    color: #dff6e6;
-    background: rgba(8, 26, 18, 0.72);
+    color: #dff6e6 !important;
+    background-color: rgba(8, 26, 18, 0.92) !important;
 }
 
-table tr:nth-child(even) td {
-    background: rgba(12, 34, 24, 0.72);
+table tr:nth-child(even) td,
+table.table tbody tr:nth-child(even) td {
+    background-color: rgba(12, 34, 24, 0.92) !important;
 }
 
-table tr:hover td {
-    background: rgba(255, 179, 71, 0.16);
+table tr:hover td,
+table.table tbody tr:hover td {
+    background-color: rgba(255, 179, 71, 0.16) !important;
     color: #fff8e6;
 }
 

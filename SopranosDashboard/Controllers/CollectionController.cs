@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using System;
 using SopranosDashboard.Models;
 using MySql.Data.MySqlClient;
 using System.Data.SqlTypes;
 using Mysqlx.Crud;
 using Org.BouncyCastle.Asn1.X509;
+using Org.BouncyCastle.Math.Field;
 namespace SopranosDashboard.Controllers;
 
 public class  CollectionController : Controller
@@ -17,7 +19,7 @@ public class  CollectionController : Controller
         return connection;
     }
 
-    public IActionResult CashPickup(string targetDate)
+    public IActionResult CashPickup(string? startDate, string? endDate)
     {
         List<CollectionLog> logs = new List<CollectionLog>();
 
@@ -25,11 +27,13 @@ public class  CollectionController : Controller
         {
             using (var connection = connectionHelper())
             {
-                string sql = "SELECT CollectionLog.Id, Mobster.`FirstName` AS MobsterFirstName, `Mobster`.`LastName` AS MobsterLastName, `CollectionLog`.`DateCollected`, `BusinessFront`.`Name` AS FrontName, `Amount` FROM `CollectionLog` INNER JOIN `BusinessFront` ON `BusinessFront`.id = `CollectionLog`.`BusinessID` INNER JOIN `Mobster` ON `Mobster`.id = `CollectionLog`.`MobsterID` WHERE `DateCollected` = @targetDate;";
-
+                string sql = "SELECT CollectionLog.Id, Mobster.`FirstName` AS MobsterFirstName, `Mobster`.`LastName` AS MobsterLastName, `CollectionLog`.`DateCollected`, `BusinessFront`.`Name` AS FrontName, `Amount` FROM `CollectionLog` INNER JOIN `BusinessFront` ON `BusinessFront`.id = `CollectionLog`.`BusinessID` INNER JOIN `Mobster` ON `Mobster`.id = `CollectionLog`.`MobsterID` WHERE (@startDate IS NULL OR DateCollected >= @startDate) AND (@endDate IS NULL OR DateCollected <= @endDate);";
                 using (var command = new MySqlCommand(sql, connection))
                 {
-                    command.Parameters.AddWithValue("@targetDate", targetDate);
+                    object startParam = string.IsNullOrWhiteSpace(startDate) ? DBNull.Value : startDate;
+                    object endParam = string.IsNullOrWhiteSpace(endDate) ? DBNull.Value : endDate;
+                    command.Parameters.AddWithValue("@startDate", startParam);
+                    command.Parameters.AddWithValue("@endDate", endParam);
 
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {

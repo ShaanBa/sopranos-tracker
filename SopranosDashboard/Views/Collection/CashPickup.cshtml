@@ -22,7 +22,8 @@
 </p>
 
 <form action="/Collection/CashPickup" method="get">
-    <input type="date" name="targetDate"/>
+    <input type="date" value="1998-01-01" min="1998-01-01" max="2000-12-31" name="startDate"/>
+    <input type="date" value="2000-12-31" min="1998-01-01" max="2000-12-31"  name="endDate"/>
     <button type="submit">Pull Transcript</button>
 </form>
 
